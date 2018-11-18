@@ -1,4 +1,4 @@
-# Vegetation Studio Pro- Shader Graph Nodes
+# Vegetation Studio Pro - Shader Graph Nodes
 
 This repository contains custom nodes for use with the Unity Shader Graph. 
 They will help you add Vegetation Studio support for instanced indirect rendering, touch react and other custom features. 
