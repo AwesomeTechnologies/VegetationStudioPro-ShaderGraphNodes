@@ -4,23 +4,25 @@ using System.Reflection;
 using UnityEngine;
 using UnityEditor.ShaderGraph;
 
-[Title("Vegetation Studio Pro", "Instanced Indirect Node")]
-public class IndirectNode : CodeFunctionNode
+[Title("Vegetation Studio Pro", "Instanced Indirect Node LW SRP")]
+// ReSharper disable once InconsistentNaming
+public class IndirectNodeLW : CodeFunctionNode
 {
-    public IndirectNode()
+    public IndirectNodeLW()
     {
-        name = "Vegetation Studio Pro Instanced Indirect Node";
+        name = "Vegetation Studio Pro Instanced Indirect Node LW SRP";
     }
 
     protected override MethodInfo GetFunctionToConvert()
     {
-        return GetType().GetMethod("ColorPassthrough",
+        return GetType().GetMethod("PositionPassthroughLW",
             BindingFlags.Static | BindingFlags.NonPublic);
     }
     
-    static string ColorPassthrough(
-        [Slot(0, Binding.None)] ColorRGB A,
-        [Slot(2, Binding.None)] out ColorRGB Out)
+    // ReSharper disable once InconsistentNaming
+    static string PositionPassthroughLW(
+        [Slot(0, Binding.None)] DynamicDimensionVector A,
+        [Slot(1, Binding.None)] out DynamicDimensionVector Out)
     {
         return
             @"
@@ -36,21 +38,21 @@ public class IndirectNode : CodeFunctionNode
 
     #pragma instancing_options renderinglayer procedural:setupVSPro
 
-    struct IndirectShaderData
-    {
-	    float4x4 PositionMatrix;
-	    float4x4 InversePositionMatrix;
-	    float4 ControlData;
-    };
+    #ifdef UNITY_PROCEDURAL_INSTANCING_ENABLED
+        struct IndirectShaderData
+        {
+	        float4x4 PositionMatrix;
+	        float4x4 InversePositionMatrix;
+	        float4 ControlData;
+        };
 
-    uniform StructuredBuffer<IndirectShaderData> IndirectShaderDataBuffer;
-    uniform StructuredBuffer<IndirectShaderData> VisibleShaderDataBuffer;
+        #if defined(SHADER_API_GLCORE) || defined(SHADER_API_D3D11) || defined(SHADER_API_GLES3) || defined(SHADER_API_METAL) || defined(SHADER_API_VULKAN) || defined(SHADER_API_PSSL) || defined(SHADER_API_XBOXONE)
+            uniform StructuredBuffer<IndirectShaderData> VisibleShaderDataBuffer;
+	    #endif	
+    #endif
 
     void setupVSPro()
-    {
-
-    #define unity_ObjectToWorld unity_ObjectToWorld
-    #define unity_WorldToObject unity_WorldToObject
+    {    
 
     #ifdef UNITY_PROCEDURAL_INSTANCING_ENABLED
 	    	unity_LODFade = VisibleShaderDataBuffer[unity_InstanceID].ControlData;
