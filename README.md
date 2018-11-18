@@ -7,6 +7,9 @@ The nodes should work on both LW and HD SRP from version 4.2.
 
 Nodes will be added when available. 
 
+If you include these nodes with a Unity Asset make sure the original .meta file is included. This way there will not be problems with multiple assets including the same file. Make sure your file is using the latest version from this repository before updating. 
+Also include a reference to the MIT licence of the node files. 
+
 <h3><b>Instanced indirect node</b></h3>
 Vegetation Studio Pro supports instanced indirect rendering. In order for shaders to use this they need some additional setup.
 Adding this node to a shader graph will do that for you automatic. No need for additional include files or manual edit of the shader source. 
