@@ -3,7 +3,12 @@
 This repository contains custom nodes for use with the Unity Shader Graph. 
 They will help you add Vegetation Studio support for instanced indirect rendering, touch react and other custom features. 
 
-The nodes should work on both LW and HD SRP from version 4.2. 
+The nodes should work on both LW and HD SRP from 2019.1 
+
+for Unity 2018.x see a separate branch. 
+
+If you get a compile error try select 
+"Window/Awesome Technologies/ShaderGraph/Register ShaderGraph Nodes" in the menu. This should update the assembly info and add access to the internal node API. 
 
 Nodes will be added when available. 
 
