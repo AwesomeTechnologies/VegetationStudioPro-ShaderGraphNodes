@@ -1,26 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
+﻿using System.Reflection;
 using UnityEditor.ShaderGraph;
 
-[Title("Vegetation Studio Pro", "Instanced Indirect Node HD SRP")]
+[Title("Vegetation Studio Pro", "Instanced Indirect Node LW SRP")]
 // ReSharper disable once InconsistentNaming
-public class IndirectNodeHD : CodeFunctionNode
+internal class IndirectNodeLW : CodeFunctionNode
 {
-    public IndirectNodeHD()
+    public IndirectNodeLW()
     {
-        name = "Vegetation Studio Pro Instanced Indirect Node HD SRP";
+        name = "Vegetation Studio Pro Instanced Indirect Node LW SRP";
     }
 
     protected override MethodInfo GetFunctionToConvert()
     {
-        return GetType().GetMethod("PositionPassthroughHD",
+        return GetType().GetMethod("PositionPassthroughLW",
             BindingFlags.Static | BindingFlags.NonPublic);
     }
     
     // ReSharper disable once InconsistentNaming
-    static string PositionPassthroughHD(
+    static string PositionPassthroughLW(
         [Slot(0, Binding.None)] DynamicDimensionVector A,
         [Slot(1, Binding.None)] out DynamicDimensionVector Out)
     {
@@ -52,10 +49,7 @@ public class IndirectNodeHD : CodeFunctionNode
     #endif
 
     void setupVSPro()
-    {
-
-    #define unity_ObjectToWorld unity_ObjectToWorld
-    #define unity_WorldToObject unity_WorldToObject
+    {    
 
     #ifdef UNITY_PROCEDURAL_INSTANCING_ENABLED
 	    	unity_LODFade = VisibleShaderDataBuffer[unity_InstanceID].ControlData;
@@ -68,5 +62,4 @@ public class IndirectNodeHD : CodeFunctionNode
 
         base.GenerateNodeFunction(registry, graphContext, generationMode);
     }
-    
 }
