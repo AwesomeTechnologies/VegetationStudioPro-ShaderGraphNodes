@@ -1,0 +1,16 @@
+{
+	"name": "com.awesometechnology.shadergraphnodes",
+	"displayName": "Vegetation Studio Shader Graph Nodes",
+	"description": "These nodes will allow you to add Vegetation Studios instanced indirect support to Shader Graph shaders.",
+	"version": "0.2.0",
+	"unity": "2019.1",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AwesomeTechnologies/VegetationStudioPro-ShaderGraphNodes.git"
+	},
+	"src": "Assets/VS_ShaderGraphNodes",
+	"author": "Lennart Johansen",
+	"dependencies": {
+	}
+}
